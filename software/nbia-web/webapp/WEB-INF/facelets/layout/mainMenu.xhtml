@@ -356,13 +356,86 @@ L-->
 
     
     <!-- link 5 begins -->
-    <td height="20" class="mainMenuItem"
-        onmouseover="changeMenuStyle(this,'mainMenuItemOver'),showCursor()"
-        onmouseout="changeMenuStyle(this,'mainMenuItem'),hideCursor()">
-      <a class="mainMenuLink" 
-         onclick="window.open('{NBIA_WIKI_UG_URL}', 'new' ,'screenX=0,screenY=0,status=yes,toolbar=no,menubar=no,location=no,width=750,height=700,scrollbars=yes,resizable=yes')">
-        <h:outputText value="#{msg.menu_help}"/>
-      </a>
+    <td class="mainMenuItem">
+        
+         <h:outputText value="#{msg.menu_help}"/>
+		 
+	 <br/>
+       <ul>  
+         <li>
+	      <a onclick="window.open('{NBIA_WIKI_UG_URL}', 'new' ,'screenX=0,screenY=0,status=yes,toolbar=no,menubar=no,location=no,width=750,height=700,scrollbars=yes,resizable=yes')">
+		<h:outputText value="#{msg.menu_help}"/>
+      	      </a>
+      	 </li>
+      	 
+      	 <f:subview id="pdfView" rendered="#{securityBean.loggedIn}">
+	 <li>
+	 		<a href="http://oai.epi-ucsf.org/datarelease/" 
+	 			 target="_blank">
+	 			NIAMS OAI Home
+	 		</a>
+	 </li>
+	 <li>
+	 		 <ice:outputResource id="releaseNotePdf"
+	                                      label="OAI Release Notes"
+	                                      resource="#{fileAccessBean.releaseNote}"                                                                              
+	                                      type="text" 
+	                                      attachment="false"/>                    
+	 </li>
+	 <li>
+	 		<ice:outputResource id="mriManualPdf"
+	 		                    label="MRI Manual"
+	 		                    resource="#{fileAccessBean.mriManual}"                                                                              
+	 		                    type="text" 
+	                                         attachment="false"/> 
+	 </li>
+	 <li>
+	 		<ice:outputResource id="xrayManualPdf" 
+	 		                    label="X-Ray Manual"
+	 		                    resource="#{fileAccessBean.xrayManual}"                                                                              
+	 		                    type="text" 
+	                                         attachment="false"/>
+	 </li>
+	 <li>
+	 		<ice:outputResource id="examLogPdf" 
+	 				    label="OAI Exam Log"
+	 				    resource="#{fileAccessBean.examLog}"  
+	 				    type="text" 
+	                                     attachment="false"/>
+	 </li>
+	 <li>
+	 		<ice:outputResource id="interviewLogPdf" 
+	 				    label="OAI Interview Log"
+	 				    resource="#{fileAccessBean.interviewLog}"                                                                              
+	 				    type="text" 
+	                                     attachment="false"/>              
+	 </li>
+	 <li>
+	 		<a href="http://www.ncbi.nlm.nih.gov/pubmed/18786841" 
+	 			 target="_blank">
+	 			OAI MR Protocol 
+	 		</a>
+	 </li>
+	 <li>
+			<a href="http://www.ncbi.nlm.nih.gov/pubmed/18424108" 
+			   target="_blank">
+			   OAI MR Quality Assurance (2008)
+			</a>
+	 </li>
+	 <li>
+			<a href="http://www.ncbi.nlm.nih.gov/pubmed/23092792" 
+			   target="_blank">
+			   OAI MR Quality Assurance Update (2013)
+			</a>
+	 </li>
+	 <li>
+	 		<a href="http://www.adobe.com/products/reader.html" 
+	 		   target="_blank">
+	 		   Adobe Reader Download
+	 		</a>
+	 </li>
+	 </f:subview>
+       </ul>
     </td>
     <!-- link 5 ends -->
     <td>
@@ -392,6 +465,7 @@ L-->
              alt="" />
       </td>     
     </f:subview>
+   
     
     <f:subview id="loggedInAsView" 
                rendered="#{securityBean.loggedIn and not anonymousLoginBean.guestLoggedIn}">

@@ -866,19 +866,10 @@ $HeadURL$
         build:all,
         dist:installer,
         dist:src,
-        dist:ncia-core-grid-client,
     dist:solr"/>
 
   <target name="dist:src">
     <!-- Add tasks here to zip up src into a distribution, may require some additoinal properties for distribution name" -->
-  </target>
-
-  <target name="dist:tools:retrieve:jboss-bindings"  description="Downloads JBOSS bindings filefrom binary repository and verifies checksum">
-    <get src="${jboss-bindings.src.url}" dest="${dist.exploded.dir}/${jboss-bindings.file}" />
-  </target>
-  
-  <target name="dist:tools:retrieve:grid:jboss-bindings"  description="Downloads JBOSS bindings filefrom binary repository and verifies checksum">
-      <get src="${ncia-core-grid.jboss-bindings.src.url}" dest="${dist.exploded.dir}/${ncia-core-grid.jboss-bindings.file}" />
   </target>
 
   <target name="dist:tools:retrieve:jbosscp"
@@ -887,70 +878,14 @@ $HeadURL$
     <get src="${jbosscp.src.url}" dest="${jbosscp.dest.file}" />
   </target>
 
-  <target name="dist:tools:retrieve:sync-gts">
-    <if>
-      <not>
-        <available file="${download.dir}/${sync-gts.binaries.file}"/>
-      </not>
-      <then>
-        <get src="${sync-gts.src.url}"
-             dest="${download.dir}/${sync-gts.binaries.file}" />
-      </then>
-    </if>
-    <property name="sync-gts.dist.dir"
-              location="${dist.exploded.dir}/${sync-gts.dist.relative.dir}"/>
-    <unzip src="${download.dir}/${sync-gts.binaries.file}"
-           dest="${sync-gts.dist.dir}"/>
-
-    <property name="cagrid.target.co.dir" location="${target.dir}/cagrid-target"/>
-    <mkdir dir="${cagrid.target.co.dir}"/>
-    <if>
-      <not>
-        <available file="${cagrid-target.src.url}"/>
-      </not>
-      <then>
-        <mkdir dir="${cagrid.target.co.dir}"/>
-        <svn-co svn.checkout.url="${cagrid-target.src.url}"
-                svn.checkout.dir="${cagrid.target.co.dir}"
-                delete="false"/>
-      </then>
-    </if>
-    <copy todir="${sync-gts.dist.dir}/cagrid-target">
-      <fileset dir="${cagrid.target.co.dir}"/>
-    </copy>
-  </target>
-
   <!-- Wrapper target that downloads all required binaries from Common Tools Repository -->
   <target name="dist:tools:retrieve" description="Downloads binary support tools form common tools repository"
     depends="
     init,
     dist:tools:retrieve:jboss,
     dist:tools:retrieve:grid:jboss,
-    dist:tools:retrieve:jai,
-    dist:tools:retrieve:ws-core,
-    dist:tools:retrieve:jboss-bindings,
-    dist:tools:retrieve:grid:jboss-bindings,
-    dist:tools:retrieve:sync-gts"
+    dist:tools:retrieve:jai"
     />
-
-
-  <target name="dist:tools:retrieve:ws-core" unless="ws-core.tools.exists">
-    <get src="${ws-core.src.url}"
-      dest="${ws-core.dest.file}"/>
-    <get src="${ws-core.src.url}.md5"
-      dest="${ws-core.dest.file}.MD5"/>
-    <checksum file="${ws-core.dest.file}" verifyProperty="ws-core.cksum.ok"/>
-    <if>
-      <equals arg1="${ws-core.cksum.ok}" arg2="true"/>
-      <then>
-        <echo message="Downloaded ws-core sucessfully"/>
-      </then>
-      <else>
-        <fail message="Failed to download ws-core file sucessfully."/>
-      </else>
-    </if>
-  </target>
-
 
   <target name="dist:tools:retrieve:jai">
     <get src="${jai.linux.src.url}"

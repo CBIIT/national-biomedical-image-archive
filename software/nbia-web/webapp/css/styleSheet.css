@@ -1019,4 +1019,8 @@ table.promptbox {
     background: #d6d6d4;
     border: solid 1px #2A4E77;
     text-decoration: none;
-}   
+}
+
+.iceOutLnk {
+	font-weight: bold;
+}

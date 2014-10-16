@@ -184,7 +184,7 @@ L-->
         <itemType>java.lang.String</itemType>
       </sourceItem>
     </dataSource>
-  <dataSource>
+  <!--dataSource>
       <sourcePackageName>gov.nih.nci.nbia.internaldomain</sourcePackageName>
     <sourceLabel>Image</sourceLabel>
       <sourceName>GeneralImage</sourceName>
@@ -539,5 +539,5 @@ L-->
       <itemType>java.lang.String</itemType>
       <actualSource>MRImage</actualSource>
     </sourceItem>
-  </dataSource>
+  </dataSource-->
  </dataGroup>

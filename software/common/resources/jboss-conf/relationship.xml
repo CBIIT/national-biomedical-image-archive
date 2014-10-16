@@ -25,7 +25,7 @@ L-->
    	<source>GeneralSeries</source>	
         <alias>generalSeriesCollection</alias>   
    </element>
-   <element>
+   <!--element>
    	    <source>GeneralImage</source>	
         <alias>generalImageCollection</alias>   
    </element>
@@ -36,5 +36,5 @@ L-->
    <element>
       <source>MRImage</source>	
       <alias>mrImage</alias>   
-   </element>
+   </element-->
 </relation>

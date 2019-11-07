@@ -12,7 +12,7 @@ L-->
 </description>
 	<property name="project.name" value="nbia"/>
 	<property name="nbia.build.file" value="build.xml"/>
-	<property name="properties.file" value="defaultAHP3.properties"/>
+	<property name="properties.file" value="install.properties"/>
 	<property file="${properties.file}"/>
 	<property name="build.dir" location="."/>
 	<property name="software.dir" location=".."/>

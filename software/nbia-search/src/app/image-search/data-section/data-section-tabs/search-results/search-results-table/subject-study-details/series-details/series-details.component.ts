@@ -11,6 +11,7 @@ import { Properties } from '@assets/properties';
 import { OhifViewerService } from '@app/image-search/services/ohif-viewer.service';
 import { PersistenceService } from '@app/common/services/persistence.service';
 import { UtilService } from '@app/common/services/util.service';
+import { CineModeService } from '@app/cine-mode/cine-mode.service';
 
 @Component( {
     selector: 'nbia-series-details',
@@ -35,17 +36,17 @@ export class SeriesDetailsComponent implements OnInit, OnDestroy{
     haveThirdParty = false;
     seriesId;
     imageUidArray = [];
-
     properties = Properties;
 
     private ngUnsubscribe: Subject<boolean> = new Subject<boolean>();
 
     constructor( private apiServerService: ApiServerService, private loadingDisplayService: LoadingDisplayService,
                  private alertBoxService: AlertBoxService, private ohifViewerService: OhifViewerService,
-                 private utilService: UtilService ) {
+                 private cineModeService: CineModeService, private utilService: UtilService ) {
     }
 
     ngOnInit() {
+
         // CHECKME  Make sure study is populated by now.
         this.upDataSearchResultsForDisplay();
 
@@ -128,14 +129,19 @@ export class SeriesDetailsComponent implements OnInit, OnDestroy{
             {
                 this.haveThirdParty = true;
             }
+
+            // toUpperCase for case insensitive.
+            row['showOhif'] = false;
+            if(  ! this.utilService.isNullOrUndefinedOrEmpty(  Properties.OHIF_MODALITIES.find( m => m === row.modality.toUpperCase() ))){
+                row['showOhif'] = true;
+            }
+
             this.seriesListForDisplay.push( row );
             this.seriesListForDisplay.push( {} );
         }
     }
 
     onThumbnailClick( seriesId ) {
-        // console.log( Properties.API_SERVER_URL + '/' + Properties.THUMBNAIL_URL + '?' + Properties.URL_KEY_THUMBNAIL_SERIES + '=' + encodeURI( seriesId.seriesPkId ) + '&' + Properties.URL_KEY_THUMBNAIL_DESCRIPTION + '=' + encodeURI( seriesId.description ), '_blank' );
-
         window.open( Properties.API_SERVER_URL +
             '/' + Properties.THUMBNAIL_URL + '?' +
             Properties.URL_KEY_THUMBNAIL_SERIES + '=' +
@@ -151,9 +157,14 @@ export class SeriesDetailsComponent implements OnInit, OnDestroy{
         this.ohifViewerService.launchOhifViewer( this.seriesListForDisplay[i]['seriesUID'], this.seriesListForDisplay[i]['studyId'] );
     }
 
+    onCineModeViewerClick(i){
+        this.cineModeService.openCineMode( this.seriesListForDisplay[i]['seriesUID'], this.seriesListForDisplay[i]['seriesPkId'],
+            this.seriesListForDisplay[i]['description'], this.study['date'] );
+    }
 
     ngOnDestroy() {
         this.ngUnsubscribe.next();
         this.ngUnsubscribe.complete();
     }
+
 }

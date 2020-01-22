@@ -1,6 +1,6 @@
 export let Properties = {
-    // 05_DEC_2019
-    VERSION: '1.0.65',
+    // 22_JAN_2019
+    VERSION: '1.0.66',
     // This is the text that appears in the clients browser tab or window
     TITLE: 'Search',
 
@@ -93,6 +93,7 @@ export let Properties = {
     // This can be removed when I get rid of all the old code used to get all the search results at once rather than just a page at a time.
     PAGED_SEARCH: true,
 
+    SHOW_DATA_ADMIN_MENU: false,
     /*
        Don't show "Image counts"or "Disk Space" in the search results, or the column selector for search results.
        We get "Image counts" and "Disk space" included in the search results when using the "getExtendedSimpleSearch" rest service,
@@ -201,6 +202,9 @@ export let Properties = {
 
     // Number of elements to show per criteria in the display query. If there are more, show ...
     // Must be 2, 3, 4 or 5 !!!
-    DISPLAY_QUERY_ELEMENTS_MAX: 4
+    DISPLAY_QUERY_ELEMENTS_MAX: 4,
+
+    // How long to show Collection descriptions after mouse ove, in seconds.
+    COLLECTION_DESCRIPTION_TOOLTIP_TIME: 3
 };
 
